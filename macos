@@ -1,0 +1,39 @@
+#!/usr/bin/env bash -x
+#
+# MacOS tweaks for Yabai
+
+set -xeEuo pipefail
+
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+# Enable the 'reduce motion' option. Faster Space switching
+defaults write com.apple.universalaccess reduceMotion -bool true
+
+## Fix folder opened from desktop not tiling in 
+defaults write com.apple.finder DisableAllAnimations -bool true
+# to reset system defaults, delete the key instead
+# defaults delete com.apple.finder DisableAllAnimations
+
+# Remove the auto-hiding Dock delay
+defaults write com.apple.dock autohide-delay -float 0
+
+# Remove the animation when hiding/showing the Dock
+defaults write com.apple.dock autohide-time-modifier -float 0
+
+# Automatically hide and show the Dock
+defaults write com.apple.dock autohide -bool true
+
+# Minimize windows into their application’s icon
+defaults write com.apple.dock minimize-to-application -bool true
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
+
+# Wipe all (default) app icons from the Dock
+# This is only really useful when setting up a new Mac, or if you don’t use
+# the Dock to launch apps.
+#defaults write com.apple.dock persistent-apps -array
+
+echo "Done. Note that some of these changes require a logout/restart to take effect."

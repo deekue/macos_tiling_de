@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# find all executable files in ~/.config/yabai and execute them
+find -s "${HOME}/.config/yabai/parts.d" -type f -perm +111 -exec {} \;
+
+echo "$(date +%Y%m%dT%H%M%S) yabai configuration loaded.."

@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+# remove all rules first
+yabai -m rule --list \
+  | jq '.[].index' \
+  | sort -rn \
+  | xargs -n 1 yabai -m rule --remove
+
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app=".*Preferences$" manage=off
+yabai -m rule --add app="^Mail$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
