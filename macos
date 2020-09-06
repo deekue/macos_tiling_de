@@ -1,6 +1,7 @@
-#!/usr/bin/env bash -x
+#!/usr/bin/env bash
 #
 # MacOS tweaks for Yabai
+# https://github.com/koekeishiya/yabai/wiki#quickstart-guide
 
 set -xeEuo pipefail
 
@@ -16,6 +17,8 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 # to reset system defaults, delete the key instead
 # defaults delete com.apple.finder DisableAllAnimations
 
+## Dock
+
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
 
@@ -28,12 +31,16 @@ defaults write com.apple.dock autohide -bool true
 # Minimize windows into their application’s icon
 defaults write com.apple.dock minimize-to-application -bool true
 
+## Spaces
+
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
+
+# Displays have separate Spaces
+defaults write com.apple.spaces spans-displays -bool true
 
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
 #defaults write com.apple.dock persistent-apps -array
 
-echo "Done. Note that some of these changes require a logout/restart to take effect."
