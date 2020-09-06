@@ -13,7 +13,7 @@ Based on [skhd](https://github.com/koekeishiya/skhd) and [yabai](https://github.
 
 ## Usage
 * The `fn` key is the base modifier.  Only tested on a MacBook, YMMV.  More bindings in progress...
-* `fn + shift + ?` opens the Key Bindings window
+* `fn + shift + ?` opens the [Key Bindings window](https://github.com/deekue/macos_tiling_de/blob/master/keybindings_window-thumb.png?raw=true)
 * `fn + return` - opens the [Alacritty](https://github.com/alacritty/alacritty) terminal emulator
 * `fn + shift + return` - opens the [Google Chrome](https://google.com/chrome/) web browser
 
