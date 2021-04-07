@@ -251,6 +251,8 @@ resize < 0 : yabai -m space --balance ; skhd --key "hyper - escape"
 
 ## Launch // Browser // <fn><shift> return ##
 fn + shift - 0x4C : command open -n -a "Google Chrome" --args --new-window
+# Kyria sends 'return_or_enter'
+fn + shift - 0x24 : command open -n -a "Google Chrome" --args --new-window
 
 ## Launch // File Browser // <fn><shift> n ##
 fn + shift - n : open -R ~
@@ -259,6 +261,8 @@ fn + shift - n : open -R ~
 # 'fn - return' is kVK_ANSI_KeypadEnter = 0x4C
 # TODO set alacritty to handle term:,ssh: URL schemes then use open -na term://
 fn - 0x4C : open -n -a "Alacritty"
+# Kyria sends 'return_or_enter'
+fn - 0x24 : open -n -a "Alacritty"
 
 ## Modify // Window Floating Toggle // <fn><shift> space ##
 fn + shift - space : yabai -m window --toggle float
