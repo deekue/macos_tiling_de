@@ -9,6 +9,9 @@ set -xeEuo pipefail
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
+# Enable the 'reduce transparency' option on Yosemite. Save GPU cycles.
+defaults write com.apple.universalaccess reduceTransparency -bool true
+
 # Enable the 'reduce motion' option. Faster Space switching
 defaults write com.apple.universalaccess reduceMotion -bool true
 
@@ -21,6 +24,9 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
+
+# Extend the auto-hiding Dock delay
+defaults write com.apple.dock autohide-delay -float 3
 
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
@@ -44,3 +50,25 @@ defaults write com.apple.spaces spans-displays -bool true
 # the Dock to launch apps.
 #defaults write com.apple.dock persistent-apps -array
 
+# Shortcuts
+#
+# see: https://support.apple.com/en-us/HT201236
+#
+# The meta-keys are set as
+#   @ for Command
+#   $ for Shift
+#   ~ for Alt
+#   ^ for Ctrl.
+# 'k' in this example is the non-meta-key that you want to use.
+# '\\U2026' is the code for an elipsis, useful in menu items
+#
+# For Application-specific commands, use the following:
+#  defaults write com.developer.app NSUserKeyEquivalents -dict-add "Menu Item" -string "@$~^k"
+# For system-wide shortcuts, you can use -g instead of the app identifier, e.g.
+#  defaults write -g NSUserKeyEquivalents -dict-add "Menu Item" -string "@$~^k"
+#
+# Note that you'll need to relaunch the app before these will take effect. Also
+# you can see if they've been successful in System Preferences -- which will also
+# need a relaunch to show the changes.
+
+echo "Done. Note that some of these changes require a logout/restart to take effect."
