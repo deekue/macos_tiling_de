@@ -10,3 +10,4 @@ yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add app=".*Preferences$" manage=off
 yabai -m rule --add app="^Mail$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^OpenVPN Connect$" manage=off
