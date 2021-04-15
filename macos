@@ -5,6 +5,14 @@
 
 set -xeEuo pipefail
 
+# make Homebrew installed apps visible to GUI apps (like Spotlight)
+# https://docs.brew.sh/FAQ#my-mac-apps-dont-find-usrlocalbin-utilities
+if [[ -d "$HOME/bin" ]] ; then
+  sudo launchctl config user path "$HOME/bin:/usr/local/bin:$PATH"
+else
+  sudo launchctl config user path "/usr/local/bin:$PATH"
+fi
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
