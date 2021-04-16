@@ -421,7 +421,7 @@ shell:
    program: /usr/bin/login
    args:
      - -pf
-     - daniel.quinlan
+     - USERNAME_GOES_HERE
      - /usr/local/bin/bash
      - --login
 # }}}
