@@ -22,11 +22,11 @@ fi
 # setup config files
 [ -d "$HOME/.config" ] || mkdir -p "$HOME/.config"
 for i in alacritty skhd yabai; do
-  ln -svi "$SRC/config/$i" "$HOME/.config/$i"
+  ln -svi -t "$HOME/.config" "$SRC/config/$i"
 done
 
 # set username in Alacritty config
-sed -i -e "s/USERNAME_GOES_HERE/${USER}/" "$HOME/.config/alacritty/alacritty"
+sed -i '.bak' -e "s/USERNAME_GOES_HERE/${USER}/" "$HOME/.config/alacritty/alacritty.yml"
 
 # tweaks
 source "${SRC}/macos"
