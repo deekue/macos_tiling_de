@@ -3,14 +3,16 @@
 # MacOS tweaks for Yabai
 # https://github.com/koekeishiya/yabai/wiki#quickstart-guide
 
-set -xeEuo pipefail
+set -eEuo pipefail
 
-# make Homebrew installed apps visible to GUI apps (like Spotlight)
+# make Homebrew/personal installed apps visible to GUI apps (like Spotlight)
 # https://docs.brew.sh/FAQ#my-mac-apps-dont-find-usrlocalbin-utilities
+launchctlUserPath="$(plutil -convert json -o - -r /private/var/db/com.apple.xpc.launchd/config/user.plist \
+  | jq -r '.PathEnvironmentVariable')"
+# TODO check if paths are already in launchctlUserPath
+sudo launchctl config user path "/usr/local/bin:$launchctlUserPath"
 if [[ -d "$HOME/bin" ]] ; then
-  sudo launchctl config user path "$HOME/bin:/usr/local/bin:$PATH"
-else
-  sudo launchctl config user path "/usr/local/bin:$PATH"
+  sudo launchctl config user path "$HOME/bin:$launchctlUserPath"
 fi
 
 # Close any open System Preferences panes, to prevent them from overriding
