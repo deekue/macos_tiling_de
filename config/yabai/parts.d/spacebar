@@ -1,11 +1,13 @@
-SPACEBAR_HEIGHT=$(spacebar -m config height)
-SPACEBAR_POSITION="$(spacebar -m config position)"
+if type spacebar > /dev/null ; then
+  SPACEBAR_HEIGHT=$(spacebar -m config height)
+  SPACEBAR_POSITION="$(spacebar -m config position)"
 
-case "$SPACEBAR_POSITION" in
-  top)
-    yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
-    ;;
-  bottom)
-    yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
-    ;;
-esac
+  case "$SPACEBAR_POSITION" in
+    top)
+      yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+      ;;
+    bottom)
+      yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
+      ;;
+  esac
+fi
