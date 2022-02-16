@@ -124,7 +124,7 @@ font:
     family: SauceCodePro Nerd Font Mono
 
     # The `style` can be specified to pick a specific face.
-    style: Medium
+    style: Light
 
   # Bold font face
   bold:
@@ -135,7 +135,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    style: Medium
 
   # Italic font face
   italic:
@@ -146,7 +146,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    style: Italic
+    style: Light Italic
 
   # Bold italic font face
   bold_italic:
@@ -157,7 +157,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    style: Bold Italic
+    style: Medium Italic
 
   # Point size
   size: 12.0
