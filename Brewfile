@@ -1,7 +1,9 @@
 # install Homebrew
 # then run `brew bundle`
-brew "koekeishiya/formulae/yabai"
-brew "koekeishiya/formulae/skhd"
-brew "cmacrae/formulae/spacebar"
-cask "alacritty"
-cask "google-chrome"
+brew install koekeishiya/formulae/yabai
+brew install koekeishiya/formulae/skhd
+brew install cmacrae/formulae/spacebar
+brew install --cask alacritty
+brew install --cask google-chrome
+brew install --cask font-fontawesome
+brew install --cask font-awesome-terminal-fonts

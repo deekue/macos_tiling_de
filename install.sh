@@ -40,5 +40,6 @@ fi
 
 brew services start yabai
 brew services start skhd
+brew services start spacebar
 
 echo "good luck!"
