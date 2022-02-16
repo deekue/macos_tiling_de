@@ -19,6 +19,9 @@ else
   sudo ln -svi "$SRC/bin/skhd_parse.py" "/usr/local/bin/skhd_parse.py"
 fi
 
+# dir for output of skhd_parse.py
+[ -d "$HOME/.cache/skhd" ] || mkdir -p "$HOME/.cache/skhd"
+
 # setup config files
 [ -d "$HOME/.config" ] || mkdir -p "$HOME/.config"
 for i in alacritty skhd yabai; do

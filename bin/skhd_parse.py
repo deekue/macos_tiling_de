@@ -194,7 +194,9 @@ if __name__ == "__main__":
                         help='output format',
                         choices=['html', 'json', 'data'],
                         default='html')
-    parser.add_argument('-o', '--output', help='output to')
+    parser.add_argument('-o', '--output',
+                        help='output to',
+                        default='~/.cache/skhd/skhd.html')
     parser.add_argument('-c',
                         '--config',
                         help='SKHD config to parse',
@@ -210,9 +212,10 @@ if __name__ == "__main__":
     VERBOSE = args.verbose
     tree = parseConfig(readFromFile(os.path.expanduser(args.config)))
     if args.output:
-        outputFile = open(args.output, 'w')
-    else:
-        outputFile = sys.stdout
+        if args.output == "-":
+            outputFile = sys.stdout
+        else:
+            outputFile = open(os.path.expanduser(args.output), 'w')
     if outputFormat == 'html':
         outputHTML(tree, file=outputFile)
     elif outputFormat == 'json':

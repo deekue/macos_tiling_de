@@ -288,4 +288,5 @@ fn + shift - 0x2A : yabai -m window --insert east   # fn + shift - \
 fn - 0x1B : yabai -m window --insert south  # fn - -
 
 # ## Launch // This Dialog // <fn><shift> ? ##
-fn + shift - 0x2C : open -na "Google Chrome" --args --new-window --app="$($HOME/bin/skhd_parse.py -f data)"
+#fn + shift - 0x2C : open -na "Google Chrome" --args --new-window --app="$($HOME/bin/skhd_parse.py -f data)"
+fn + shift - 0x2C : $HOME/bin/skhd_parse.py ; open -na "Google Chrome" --args --new-window --app="file://$HOME/.cache/skhd/skhd.html"
