@@ -188,7 +188,7 @@ def outputData(tree, file=sys.stdout):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-f',
                         '--format',
                         help='output format',
