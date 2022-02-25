@@ -1,0 +1,62 @@
+# Googl Chrome as default browser
+com.google.Chrome http
+com.google.Chrome https
+com.google.chrome public.html viewer
+com.google.chrome public.xhtml viewer
+
+# make Alacritty "default" terminal. needs correct handlers
+# URLs
+com.apple.automator.alacritty-handler ssh
+com.apple.automator.alacritty-handler telnet
+com.apple.automator.alacritty-handler x-man-page
+# file extensions
+#com.apple.automator.alacritty-handler command all
+#com.apple.automator.alacritty-handler tool all
+# file extensions specific to Terminal (so don't touch)
+#com.apple.Terminal term all
+#com.apple.Terminal terminal all
+
+com.apple.automator.alacritty-handler public.script shell
+com.apple.automator.alacritty-handler public.bash-script shell
+com.apple.automator.alacritty-handler public.csh-script shell
+com.apple.automator.alacritty-handler public.ksh-script shell
+com.apple.automator.alacritty-handler public.perl-script shell
+com.apple.automator.alacritty-handler public.php-script shell
+com.apple.automator.alacritty-handler public.python-script shell
+com.apple.automator.alacritty-handler public.ruby-script shell
+com.apple.automator.alacritty-handler public.shell-script shell
+com.apple.automator.alacritty-handler public.tcsh-script shell
+com.apple.automator.alacritty-handler public.zsh-script shell
+
+# Make $EDITOR in Alacritty default handle for text files
+# /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -dump \
+#   | sed -ne '/^uti:[[:space:]]*/ s///p' \
+#   | sort -u \
+#   >> ~/Downloads/utis
+# grep -i '^public\..*text$' \
+#   | sed -e 's/^\(.*\)$/com.apple.automator.alacritty-editor \1 all/'
+#   >> ~/src/dotfiles/duti
+com.apple.automator.alacritty-editor public.script editor
+com.apple.automator.alacritty-editor public.bash-script editor
+com.apple.automator.alacritty-editor public.csh-script editor
+com.apple.automator.alacritty-editor public.ksh-script editor
+com.apple.automator.alacritty-editor public.perl-script editor
+com.apple.automator.alacritty-editor public.php-script editor
+com.apple.automator.alacritty-editor public.python-script editor
+com.apple.automator.alacritty-editor public.ruby-script editor
+com.apple.automator.alacritty-editor public.shell-script editor
+com.apple.automator.alacritty-editor public.tcsh-script editor
+com.apple.automator.alacritty-editor public.zsh-script editor
+
+com.apple.automator.alacritty-editor public.script viewer
+com.apple.automator.alacritty-editor public.bash-script viewer
+com.apple.automator.alacritty-editor public.csh-script viewer
+com.apple.automator.alacritty-editor public.ksh-script viewer
+com.apple.automator.alacritty-editor public.perl-script viewer
+com.apple.automator.alacritty-editor public.php-script viewer
+com.apple.automator.alacritty-editor public.python-script viewer
+com.apple.automator.alacritty-editor public.ruby-script viewer
+com.apple.automator.alacritty-editor public.shell-script viewer
+com.apple.automator.alacritty-editor public.tcsh-script viewer
+com.apple.automator.alacritty-editor public.zsh-script viewer
+
