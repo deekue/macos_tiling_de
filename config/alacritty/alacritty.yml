@@ -1011,7 +1011,7 @@ key_bindings: # {{{
   - { key: L,      mods: Command,            action: ClearLogNotice }
   - { key: L,      mods: Command, mode: ~Vi, chars: "\x0c"          }
   - { key: Comma,  mods: Command,            command: { program: "sh", args: ["-c", "open -t ~/.config/alacritty/alacritty.yml"] } }
-  - { key: T,      mods: Command,            action: SpawnNewInstance }
+  - { key: T,      mods: Command,            action: CreateNewWindow }
   # alternate ViMode toggle (Cmd+Shift+Space is taken by Spotlight)
   - { key: Escape, mods: Command,            action: ToggleViMode   }
   # map common Control-key combos to use Command-key, so I don't have to relearn everything on macos
