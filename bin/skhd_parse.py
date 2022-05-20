@@ -7,6 +7,7 @@
 #
 # inspired by
 # https://github.com/regolith-linux/remontoire/blob/master/src/config_parser.vala
+# data URI: https://stackoverflow.com/questions/9045584/opening-standard-stream-in-google-chrome
 #
 # TODO
 # - add heuristic to find common configs?
