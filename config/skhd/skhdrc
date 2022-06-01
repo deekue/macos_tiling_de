@@ -112,7 +112,8 @@ fn - tab : yabai -m space --focus next
 fn + shift - tab : yabai -m space --focus prev
 
 ## Navigate // Workspaces 1-10 // <fn> 0..9 ##
-fn - 1 : yabai -m space --focus  1 
+# SIP only
+fn - 1 : yabai -m space --focus  1
 fn - 2 : yabai -m space --focus  2
 fn - 3 : yabai -m space --focus  3
 fn - 4 : yabai -m space --focus  4
@@ -289,4 +290,5 @@ fn - 0x1B : yabai -m window --insert south  # fn - -
 
 # ## Launch // This Dialog // <fn><shift> ? ##
 #fn + shift - 0x2C : open -na "Google Chrome" --args --new-window --app="$($HOME/bin/skhd_parse.py -f data)"
-fn + shift - 0x2C : $HOME/bin/skhd_parse.py ; open -na "Google Chrome" --args --new-window --app="file://$HOME/.cache/skhd/skhd.html"
+#fn + shift - 0x2C : $HOME/bin/skhd_parse.py ; open -na "Google Chrome" --args --new-window --name="Key Bindings" --app="file://$HOME/.cache/skhd/skhd.html"
+fn + shift - 0x2C : $HOME/bin/key_bindings_window.sh

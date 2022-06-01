@@ -12,12 +12,15 @@ if command -v csrutil 2> /dev/null; then
   # TODO if enabled show link to Yabai SIP doc
 fi
 
-# put skhd_parse.py in path
-if [ -d "$HOME/bin" ] ; then
-  ln -svi "$SRC/bin/skhd_parse.py" "$HOME/bin/skhd_parse.py"
-else
-  sudo ln -svi "$SRC/bin/skhd_parse.py" "/usr/local/bin/skhd_parse.py"
-fi
+# put scripts in path
+for script in $SRC/bin/* ; do
+  script_name="$(basename "$script")"
+  if [ -d "$HOME/bin" ] ; then
+    ln -svi "$script" "$HOME/bin/$script_name"
+  else
+    sudo ln -svi "$script" "/usr/local/bin/$script_name"
+  fi
+done
 
 # dir for output of skhd_parse.py
 [ -d "$HOME/.cache/skhd" ] || mkdir -p "$HOME/.cache/skhd"
