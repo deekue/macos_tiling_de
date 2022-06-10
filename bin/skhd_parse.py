@@ -24,17 +24,159 @@ LINE_RE = re.compile(
 VERBOSE = False
 
 HTML_HEADER = """
+<!DOCTYPE html>
+<!--
+expando rows from https://codepen.io/aardrian/pen/VoQbLm
+key shortcuts from https://www.webmound.com/create-keyboard-shortcuts-in-javascript/
+  -->
 <html>
-<head>
- <title>Key Bindings</title>
- <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-</head>
-<body>
- <table>
-  <thead>
-   <tr><th>Action</th><th>Keybinding</th></tr>
-  </thead>
-  <tbody>
+  <head>
+    <title>Key Bindings</title>
+    <!-- styling for kbd tag -->
+    <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+    <style>
+body {
+  line-height: 1.4;
+  background: #fefefe;
+  color: #333;
+  margin: 0 1em;
+}
+
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+th {
+  padding: 0.25em 0.5em 0.25em 1em;
+  vertical-align: text-top;
+  text-indent: -0.5em;
+}
+
+th {
+  vertical-align: bottom;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-weight: bold;
+}
+
+.row td:nth-of-type(2) {
+  padding: 0.25em 0.5em 0.25em 1em;
+  vertical-align: text-top;
+  text-indent: -0.5em;
+}
+
+.row th:nth-of-type(3),
+.row td:nth-of-type(3) {
+  text-align: right;
+}
+
+td[colspan] {
+  background-color: #fefefe;
+  color: #000;
+  font-weight: bold;
+  padding: 0;
+  text-indent: 0;
+}
+
+tr.shown, tr.hidden {
+  display: table-row;
+}
+
+tr.hidden {
+  display: none;
+}
+
+.row button {
+  background-color: transparent;
+  border: .1em solid transparent;
+  font: inherit;
+  padding: 0.25em 0.5em 0.25em .25em;
+  width: 100%;
+  text-align: left;
+}
+
+.row button svg {
+  width: .8em;
+  height: .8em;
+  margin: 0 0 -.05em 0;
+  fill: #66f;
+  transition: transform 0.25s ease-in;
+  transform-origin: center 45%;
+  transform: rotate(-90deg);
+}
+
+.row button:hover svg,
+.row button:focus svg {
+  fill: #00c;
+}
+
+.row button:focus, .row button:hover {
+  background-color: #ddd;
+  outline: .2em solid #111;
+}
+
+/* Lean on programmatic state for styling */
+.row button[aria-expanded="true"] svg {
+  transform: rotate(0deg);
+}
+
+    </style>
+    <script>
+      function modulo(n, m) {
+        return ((n % m) + m) % m;
+      }
+      document.addEventListener('keydown', (e) => {
+        var buttons = Array.from(document.getElementsByTagName('button'));
+        var current = document.activeElement;
+        console.log(current.id);
+        // find index of current in buttons
+        const curIndex = buttons.findIndex(({id}) => id === current.id);
+        // j k  - up down
+        if (e.key.toLowerCase() === 'j') {
+          // move down the list of buttons
+          var newIndex = modulo((curIndex + 1), buttons.length);
+          console.log(newIndex);
+          buttons[newIndex].focus();
+        } else if (e.key.toLowerCase() === 'k') {
+          // move up the list of buttons
+          var newIndex = modulo((curIndex - 1), buttons.length);
+          console.log(newIndex);
+          buttons[newIndex].focus();
+
+        }
+      });
+
+      function toggle(btnID, tbodyID) {
+        var theButton = document.getElementById(btnID);
+        var theBody = document.getElementById(tbodyID);
+        var theRows = theBody.getElementsByTagName("tr");
+
+        if (theButton.getAttribute("aria-expanded") == "false") {
+          for (var i = 1; i < theRows.length; i++) {
+            theRows[i].classList.add("shown");
+            theRows[i].classList.remove("hidden");
+          }
+          theButton.setAttribute("aria-expanded", "true");
+        } else {
+          for (var i = 1; i < theRows.length; i++) {
+            theRows[i].classList.add("hidden");
+            theRows[i].classList.remove("shown");
+          }
+          theButton.setAttribute("aria-expanded", "false");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <table class="row">
+      <thead>
+        <tr>
+          <th colspan="2">Action</th>
+          <th>Keybinding</th>
+        </tr>
+      </thead>
 """
 
 HTML_FOOTER = """
@@ -44,9 +186,19 @@ HTML_FOOTER = """
 </html>
 """
 
-HTML_CATEGORY_START = '<tbody id="{category}"><tr><th>{category}</th><th>&nbsp;</th></tr>'
+HTML_CATEGORY_START = '''<tbody id="{category}">
+        <tr>
+          <td colspan="3">
+            <button type=button id="btn{category}" aria-expanded="false" onclick="toggle(this.id, '{category}');" aria-label="{category}">
+              <svg xmlns="\http://www.w3.org/2000/svg&quot;" viewBox="0 0 80 80" focusable="false">
+                <path d="M70.3 13.8L40 66.3 9.7 13.8z"></path>
+              </svg>
+              {category}
+            </button>
+          </td>
+        </tr>'''
 HTML_CATEGORY_END = '</tbody>'
-HTML_KEYSPEC = '<tr><td>{label}</td><td>{keys}</td></tr>'
+HTML_KEYSPEC = '<tr class="hidden"><td></td><td>{label}</td><td>{keys}</td></tr>'
 
 
 def log(*args):
