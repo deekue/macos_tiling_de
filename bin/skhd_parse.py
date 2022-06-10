@@ -40,21 +40,23 @@ body {
   background: #fefefe;
   color: #333;
   margin: 0 1em;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+footer {
+  margin-top: auto;
 }
 
-table {
+.row table {
   margin: 1em 0;
   border-collapse: collapse;
   min-width: 100%;
 }
 
-th {
+.row th {
   padding: 0.25em 0.5em 0.25em 1em;
-  vertical-align: text-top;
   text-indent: -0.5em;
-}
-
-th {
   vertical-align: bottom;
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
@@ -72,7 +74,7 @@ th {
   text-align: right;
 }
 
-td[colspan] {
+.row td[colspan] {
   background-color: #fefefe;
   color: #000;
   font-weight: bold;
@@ -130,42 +132,55 @@ tr.hidden {
       document.addEventListener('keydown', (e) => {
         var buttons = Array.from(document.getElementsByTagName('button'));
         var current = document.activeElement;
-        console.log(current.id);
-        // find index of current in buttons
-        const curIndex = buttons.findIndex(({id}) => id === current.id);
-        // j k  - up down
-        if (e.key.toLowerCase() === 'j') {
-          // move down the list of buttons
-          var newIndex = modulo((curIndex + 1), buttons.length);
-          console.log(newIndex);
-          buttons[newIndex].focus();
-        } else if (e.key.toLowerCase() === 'k') {
-          // move up the list of buttons
-          var newIndex = modulo((curIndex - 1), buttons.length);
-          console.log(newIndex);
-          buttons[newIndex].focus();
 
+        const curIndex = buttons.findIndex(({id}) => id === current.id);
+        // h j k l - left up down right
+        if (e.key.toLowerCase() === 'j' || e.key === 'ArrowDown') {
+          var newIndex = modulo((curIndex + 1), buttons.length);
+          buttons[newIndex].focus();
+        } else if (e.key.toLowerCase() === 'k' || e.key === 'ArrowUp') {
+          var newIndex = modulo((curIndex - 1), buttons.length);
+          buttons[newIndex].focus();
+        } else if (e.key.toLowerCase() === 'h' || e.key === 'ArrowLeft') {
+          setRowVisibility(current.id, false);
+        } else if (e.key.toLowerCase() === 'l' || e.key ==='ArrowRight') {
+          setRowVisibility(current.id, true);
+        } else if (e.key.toLowerCase() === 'a') {
+          setAllRowVisibility(true);
+        } else if (e.key.toLowerCase() === 'x') {
+          setAllRowVisibility(false);
+        } else if (e.key === 'Home') {
+          buttons[0].focus();
+        } else if (e.key === 'End') {
+          buttons[buttons.length - 1].focus();
         }
       });
 
-      function toggle(btnID, tbodyID) {
-        var theButton = document.getElementById(btnID);
-        var theBody = document.getElementById(tbodyID);
-        var theRows = theBody.getElementsByTagName("tr");
-
-        if (theButton.getAttribute("aria-expanded") == "false") {
-          for (var i = 1; i < theRows.length; i++) {
-            theRows[i].classList.add("shown");
-            theRows[i].classList.remove("hidden");
-          }
-          theButton.setAttribute("aria-expanded", "true");
-        } else {
-          for (var i = 1; i < theRows.length; i++) {
-            theRows[i].classList.add("hidden");
-            theRows[i].classList.remove("shown");
-          }
-          theButton.setAttribute("aria-expanded", "false");
+      function setAllRowVisibility(show) {
+        var theTBodys = document.getElementsByTagName('tbody');
+        for (var i = 0; i < theTBodys.length; i++) {
+          var id = theTBodys[i].id;
+          setRowVisibility('btn' + id, show);
         }
+      }
+
+      function setRowVisibility(btnID, show) {
+        var theButton = document.getElementById(btnID);
+        var tbodyID = btnID.substring(3);
+        var theRows = document.getElementById(tbodyID).getElementsByTagName("tr");
+
+        for (var i = 1; i < theRows.length; i++) {
+          theRows[i].classList.add(show ? "shown" : "hidden");
+          theRows[i].classList.remove(show ? "hidden" : "shown");
+        }
+        theButton.setAttribute("aria-expanded", show ? "true" : "false");
+      }
+
+      function toggleButton(btnID) {
+        var theButton = document.getElementById(btnID);
+        var toggleState = theButton.getAttribute("aria-expanded") == "true" ? false : true;
+
+        setRowVisibility(btnID, toggleState);
       }
     </script>
   </head>
@@ -182,6 +197,14 @@ tr.hidden {
 HTML_FOOTER = """
   </tbody>
  </table>
+ <footer>
+   <table>
+   <tr><td><kbd>j</kbd>&nbsp;<kbd>k</kbd></td><td>move down/up</td></tr>
+   <tr><td><kbd>h</kbd>&nbsp;<kbd>l</kbd></td><td>close/open</td></tr>
+   <tr><td><kbd>a</kbd></td><td>open all</td></tr>
+   <tr><td><kbd>x</kbd></td><td>close all</td></tr>
+   </table>
+ </footer>
 </body>
 </html>
 """
@@ -189,7 +212,7 @@ HTML_FOOTER = """
 HTML_CATEGORY_START = '''<tbody id="{category}">
         <tr>
           <td colspan="3">
-            <button type=button id="btn{category}" aria-expanded="false" onclick="toggle(this.id, '{category}');" aria-label="{category}">
+            <button type=button id="btn{category}" aria-expanded="false" onclick="toggleButton(this.id);" aria-label="{category}">
               <svg xmlns="\http://www.w3.org/2000/svg&quot;" viewBox="0 0 80 80" focusable="false">
                 <path d="M70.3 13.8L40 66.3 9.7 13.8z"></path>
               </svg>
