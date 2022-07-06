@@ -88,7 +88,7 @@ fn + shift - s : pmset sleepnow
 fn + shift - p : osascript -e 'tell app "System Events" to shut down'
 
 ## Session // Lock Screen // <fn> esc ##
-fn - escape : python -c 'import ctypes; ctypes.CDLL("/System/Library/PrivateFrameworks/login.framework/Versions/Current/login").SACLockScreenImmediate()'
+fn - escape : python3 -c 'import ctypes; ctypes.CDLL("/System/Library/PrivateFrameworks/login.framework/Versions/Current/login").SACLockScreenImmediate()'
 
 ## Navigate // Relative Window // <fn> k j h l ##
 fn - h : yabai -m window --focus west
