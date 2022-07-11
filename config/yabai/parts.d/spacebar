@@ -1,13 +1,31 @@
+#!/usr/bin/env bash
+
+sleepInterval=12
+
 if type spacebar > /dev/null ; then
+  # wait for Spacebar to come up or the commands below hang
+  for i in $(seq 1 10) ; do
+    if pgrep -q spacebar ; then
+      spacebarFound=true
+      break
+    fi
+    sleep "$sleepInterval"s
+    echo "waited $((i*sleepInterval))s for spacebar" >&2
+  done
+  if [[ "${spacebarFound:-false}" == "false" ]] ; then
+    echo "Spacebar not running, reapply Yabai config when it's up and running." >&2
+    exit 0
+  fi
+
   SPACEBAR_HEIGHT=$(spacebar -m config height)
   SPACEBAR_POSITION="$(spacebar -m config position)"
 
   case "$SPACEBAR_POSITION" in
     top)
-      yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+      yabai -m config external_bar "all:$SPACEBAR_HEIGHT:0"
       ;;
     bottom)
-      yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
+      yabai -m config external_bar "all:0:$SPACEBAR_HEIGHT"
       ;;
   esac
 fi
