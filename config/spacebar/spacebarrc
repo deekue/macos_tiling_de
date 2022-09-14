@@ -30,10 +30,10 @@ spacebar -m config spaces_for_all_displays     on
 spacebar -m config clock_icon                  
 spacebar -m config dnd_icon                    
 spacebar -m config clock_format                "%d/%m/%Y %R"
-spacebar -m config right_shell                 on
 spacebar -m config right_shell_icon            
 spacebar -m config right_shell_icon_color      0x88a8a8a8
 spacebar -m config right_shell_command         "~/.config/spacebar/vpn_status.sh"
+spacebar -m config right_shell                 on
 #spacebar -m config debug_output                on
 
 echo "$(date +%Y%m%d%H%M) spacebar configuration loaded.."
