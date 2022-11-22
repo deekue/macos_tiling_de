@@ -27,8 +27,8 @@ done
 
 # setup config files
 [ -d "$HOME/.config" ] || mkdir -p "$HOME/.config"
-for i in alacritty skhd yabai; do
-  ln -svi -t "$HOME/.config" "$SRC/config/$i"
+for i in alacritty skhd yabai spacebar ; do
+  ln -shiv "$SRC/config/$i" "$HOME/.config/$i"
 done
 
 # set username in Alacritty config
