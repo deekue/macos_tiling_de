@@ -275,6 +275,11 @@ fn - 0x4C : open -n -a "Alacritty"
 # Kyria sends 'return_or_enter'
 fn - 0x24 : open -n -a "Alacritty"
 
+## Launch // VPN Connect // <fn> v ##
+fn - v : osascript ~/bin/connect_vpn.scpt
+## Launch // VPN Disconnect // <fn><shift> v ##
+fn + shift - v : osascript ~/bin/disconnect_vpn.scpt
+
 ## Modify // Window Floating Toggle // <fn><shift> space ##
 fn + shift - space : yabai -m window --toggle float
 
