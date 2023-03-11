@@ -7,12 +7,14 @@ set -eEuo pipefail
 
 # make Homebrew/personal installed apps visible to GUI apps (like Spotlight)
 # https://docs.brew.sh/FAQ#my-mac-apps-dont-find-usrlocalbin-utilities
-launchctlUserPath="$(plutil -convert json -o - -r /private/var/db/com.apple.xpc.launchd/config/user.plist \
-  | jq -r '.PathEnvironmentVariable')"
-# TODO check if paths are already in launchctlUserPath
-sudo launchctl config user path "/usr/local/bin:$launchctlUserPath"
-if [[ -d "$HOME/bin" ]] ; then
-  sudo launchctl config user path "$HOME/bin:$launchctlUserPath"
+if [[ -f /private/var/db/com.apple.xpc.launchd/config/user.plist ]] ; then
+  launchctlUserPath="$(plutil -convert json -o - -r /private/var/db/com.apple.xpc.launchd/config/user.plist \
+    | jq -r '.PathEnvironmentVariable')"
+  # TODO check if paths are already in launchctlUserPath
+  sudo launchctl config user path "/usr/local/bin:$launchctlUserPath"
+  if [[ -d "$HOME/bin" ]] ; then
+    sudo launchctl config user path "$HOME/bin:$launchctlUserPath"
+  fi
 fi
 
 # Close any open System Preferences panes, to prevent them from overriding
@@ -20,10 +22,12 @@ fi
 osascript -e 'tell application "System Preferences" to quit'
 
 # Enable the 'reduce transparency' option on Yosemite. Save GPU cycles.
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# FIXME changed name on Monterey?
+#defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Enable the 'reduce motion' option. Faster Space switching
-defaults write com.apple.universalaccess reduceMotion -bool true
+# FIXME changed name on Monterey?
+#defaults write com.apple.universalaccess reduceMotion -bool true
 
 ## Fix folder opened from desktop not tiling in 
 defaults write com.apple.finder DisableAllAnimations -bool true
@@ -47,18 +51,29 @@ defaults write com.apple.dock autohide -bool true
 # Minimize windows into their application’s icon
 defaults write com.apple.dock minimize-to-application -bool true
 
+## Desktop
+
+# hide all icons
+defaults write com.apple.finder CreateDesktop -bool false ; killall Finder
+
 ## Spaces
 
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
 
 # Displays have separate Spaces
+# FIXME seems to be an int on Arm
 defaults write com.apple.spaces spans-displays -bool true
 
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
 #defaults write com.apple.dock persistent-apps -array
+
+## Menubar
+
+# autohide menubar, since we're using Spacebar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
 # Shortcuts
 #

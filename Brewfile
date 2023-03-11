@@ -7,3 +7,4 @@ brew install --cask alacritty
 brew install --cask google-chrome
 brew install --cask font-fontawesome
 brew install --cask font-awesome-terminal-fonts
+brew install --cask font-sauce-code-pro-nerd-font
