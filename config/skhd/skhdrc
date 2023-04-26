@@ -41,20 +41,21 @@
 ## Launch // File Search // <⌘><⌥> space ##
 ## Launch // Notification Viewer // <control><⌥><⌘> n ##
 
-## Modify // Window Layout Mode // <fn> t ##
-fn - t : yabai -m space --layout "$([ "$(yabai -m query --spaces --space | jq '.type')" = '"bsp"' ] && echo float || echo bsp)"
+## Modify // Window Layout Mode // <fn><shift> t ##
+fn + shift - t : yabai -m space --layout "$([ "$(yabai -m query --spaces --space | jq '.type')" = '"bsp"' ] && echo float || echo bsp)"
 
 ## Modify // Next Window Orientation // <fn><shift> delete ##
 fn + shift - 0x75 : yabai -m space --rotate 90 # fn - delete = 0x75
 
+# Settings panes in Ventura: plutil -convert json -o - -r "/System/Applications/System Settings.app/Contents/Resources/Sidebar.plist"
 ## Modify // Bluetooth Settings // <fn> b ##
-fn - b : osascript -e 'tell application "System Preferences"' -e 'activate' -e 'set current pane to pane "com.apple.preferences.Bluetooth"' -e 'end tell'
+fn - b : open x-apple.systempreferences:com.apple.preferences.Bluetooth
 
 ## Modify // Display Settings // <fn> d ##
-fn - d : osascript -e 'tell application "System Preferences"' -e 'activate' -e 'set current pane to pane "com.apple.preferences.displays"' -e 'end tell'
+fn - d : open x-apple.systempreferences:com.apple.Displays-Settings.extension
 
 ## Modify // Wifi Settings // <fn> w ##
-fn - w : osascript -e 'tell application "System Preferences"' -e 'activate' -e 'set current pane to pane "com.apple.preferences.network"' -e 'end tell'
+fn - w : open x-apple.systempreferences:com.apple.wifi-settings-extension
 
 ## Modify // Settings // <fn> c ##
 fn - c : osascript -e 'tell application "System Preferences" to activate'
