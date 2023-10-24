@@ -20,7 +20,7 @@ function generateCache {
 
 function getWindowId {
   yabai -m query --windows \
-    | jq ".[] | select(.app == \"Google Chrome\") | select(.title == \"${WindowTitle}\") | .id"
+    | jq ".[] | select(.app == \"Google Chrome\") | select(.title | startswith(\"${WindowTitle}\")) | .id"
 }
 
 function openWindow {
@@ -31,7 +31,7 @@ function openWindow {
 }
 
 function positionWindow {
-  local -r windowId="${1:?arg1 is windowId}"
+  local -r windowId="${1:?positionWindow: arg1 is windowId}"
   yabai -m window ${windowId} --toggle float
   yabai -m window ${windowId} --toggle sticky  # may require SIP?
   yabai -m window ${windowId} --toggle topmost
@@ -53,7 +53,7 @@ function waitForWindowId {
 }
 
 function closeWindow {
-  local -r windowId="${1:?arg1 is windowId}"
+  local -r windowId="${1:?closeWindow: arg1 is windowId}"
 
   yabai -m window "${windowId}" --close
 }
