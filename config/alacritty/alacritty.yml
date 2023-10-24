@@ -498,7 +498,7 @@ shell:
    program: /usr/bin/login
    args:
      - -pf
-     - daniel.quinlan
+     - Daniel.Quinlan2
      - /opt/homebrew/bin/bash
      - --login
 # }}}
