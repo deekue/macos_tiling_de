@@ -5,7 +5,7 @@ sleepInterval=12
 if type spacebar > /dev/null ; then
   # wait for Spacebar to come up or the commands below hang
   for i in $(seq 1 10) ; do
-    if pgrep -q spacebar ; then
+    if pgrep -q spacebar && spacebar -m config display > /dev/null ; then
       spacebarFound=true
       break
     fi
