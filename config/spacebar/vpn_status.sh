@@ -25,8 +25,11 @@ function check_wifi {
   local -r ssid="$(networksetup -getairportnetwork "$wifi_intf" \
 	  | gsed -n -e 's/^Current Wi-Fi Network: \(.*\)$/\1/p')"
 
-  location="${SSID_TO_LOCATION[$ssid]}"
-  if [[ -z "$location" ]] ; then
+  if [[ -z "$ssid" ]] ; then
+    location="Offline"
+  elif [[ -v 'SSID_TO_LOCATION[$ssid]' ]] ; then
+    location="${SSID_TO_LOCATION[$ssid]}"
+  else
     location="Internet"
   fi
 }
@@ -39,7 +42,8 @@ function check_vpn {
       fi
       ;;
     anyconnect)
-      if /opt/cisco/anyconnect/bin/vpn state | grep -q 'state: Disconnected' ; then
+      state="$(/opt/cisco/anyconnect/bin/vpn state | grep -c 'state: Connected' || true)"
+      if [[ "$state" -lt 3 ]] ; then
         # at least one component is disconnected
         vpn=
       else
