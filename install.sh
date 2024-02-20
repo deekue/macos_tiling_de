@@ -10,10 +10,12 @@ SRC="$( cd -P "$(dirname -- "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd )"
 if command -v csrutil 2> /dev/null; then
   csrutil status
   # TODO if enabled show link to Yabai SIP doc
+  echo Some functionality is not available unless you disable SIP
+  echo https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
 fi
 
 # put scripts in path
-for script in $SRC/bin/* ; do
+for script in "$SRC"/bin/* ; do
   script_name="$(basename "$script")"
   if [ -d "$HOME/bin" ] ; then
     ln -svi "$script" "$HOME/bin/$script_name"
@@ -27,8 +29,8 @@ done
 
 # setup config files
 [ -d "$HOME/.config" ] || mkdir -p "$HOME/.config"
-for i in alacritty skhd yabai spacebar ; do
-  ln -svi -t "$HOME/.config" "$SRC/config/$i"
+for i in "$SRC"/config/* ; do
+  ln -svi "$i" "$HOME/.config/$(basename "$i")"
 done
 
 # set username in Alacritty config
